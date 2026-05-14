@@ -6,21 +6,7 @@
 </head>
 <body>
 
-<nav id="navbar">
-    <a href="#hero" class="nav-logo">NEU<span>∴</span>VERSAL</a>
-    <ul class="nav-links">
-        <li><a href="#about">Rreth Nesh</a></li>
-        <li><a href="#services">Shërbimet</a></li>
-        <li><a href="#team">Ekipi</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contact">Kontakt</a></li>
-        <li><a href="#booking" class="nav-cta">Rezervo</a></li>
-    </ul>
-    <div class="hamburger" >
-        <span></span><span></span><span></span>
-    </div>
-</nav>
-
+<div id="navbar"></div>
 <section id="hero">
     <div class="hero-bg-pattern"></div>
     <div class="hero-orb orb1"></div>
@@ -64,7 +50,7 @@
         </div>
         <div class="reveal">
             <div class="section-tag">Rreth Nesh</div>
-            <h2 class="section-title">Misioni ynë:<br><em>pacienti i parë</em></h2>
+            <h2 class="section-title">Misioni ynë:<br><em>pacienti në qendër </em></h2>
             <p class="section-sub">Neuversal është konceptuar si një platformë moderne shëndetësore që reflekton dedikimin tonë ndaj cilësisë dhe inovacionit. Ne besojmë se çdo pacient meriton kujdes të personalizuar dhe trajtim dinjitoz.</p>
             <div class="values-grid">
                 <div class="value-card">
@@ -95,7 +81,7 @@
 <section id="services">
     <div class="services-header reveal">
         <div>
-            <div class="section-tag">Çfarë ofrojmë</div>
+            <div class="section-tag">Çfarë ofrojmë ne?</div>
             <h2 class="section-title">Shërbimet <em>tona</em></h2>
         </div>
         <a href="#booking" class="btn-primary">Rezervo Konsultë</a>
@@ -110,7 +96,7 @@
         <div class="service-card reveal">
             <div class="service-num">02</div>
             <div class="service-icon-wrap">🧠</div>
-            <div class="service-title">Neurologi</div>
+            <div class="service-title">Neurologji</div>
             <div class="service-text">Vlerësim dhe trajtim i çrregullimeve neurologjike duke përfshirë MRI dhe EEG të avancuar.</div>
         </div>
         <div class="service-card reveal">
@@ -119,10 +105,81 @@
             <div class="service-title">Ortopedi</div>
             <div class="service-text">Kirurgji dhe rehabilitim minimal-invaziv për problemet e sistemit muskuloskeletor.</div>
         </div>
+        <div class="service-card reveal">
+            <div class="service-num">04</div>
+            <div class="service-icon-wrap">👁️</div>
+            <div class="service-title">Oftalmologji</div>
+            <div class="service-text">Kontrolle të plota të shikimit dhe ndërhyrje kirurgjike me laser të gjeneratës së re.</div>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-num">05</div>
+            <div class="service-icon-wrap">🩺</div>
+            <div class="service-title">Check-Up i Plotë</div>
+            <div class="service-text">Paketa gjithëpërfshirëse diagnostikuese për monitorimin proaktiv të shëndetit tuaj.</div>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-num">06</div>
+            <div class="service-icon-wrap">💻</div>
+            <div class="service-title">Konsulta Online</div>
+            <div class="service-text">Teleconsultime me specialistë nga komoditeti i shtëpisë suaj, 7 ditë në javë.</div>
+        </div>
     </div>
 </section>
 
+<!-- TEAM -->
+<section id="team">
+    <div class="reveal" style="text-align:center;">
+        <div class="section-tag" style="display:block;padding-left:0;">Profesionistët tanë</div>
+        <h2 class="section-title">Ekipi <em>Mjekësor</em></h2>
+        <p class="section-sub" style="margin:0 auto;">Specialistë me përvojë ndërkombëtare të dedikuar ndaj shëndetit tuaj.</p>
+    </div>
+    <div class="team-grid">
+        <div class="team-card reveal">
+            <div class="team-photo" style="background:linear-gradient(135deg,#0a1628,#1a7a8a);">👨‍⚕️</div>
+            <div class="team-info">
+                <div class="team-name">Dr. Artan Koci</div>
+                <div class="team-role">Kardiolog · Drejtor Mjekësor</div>
+            </div>
+        </div>
+        <div class="team-card reveal">
+            <div class="team-photo" style="background:linear-gradient(135deg,#0d2040,#22a0b4);">👩‍⚕️</div>
+            <div class="team-info">
+                <div class="team-name">Dr. Elona Marku</div>
+                <div class="team-role">Neurologe · Specialiste</div>
+            </div>
+        </div>
+        <div class="team-card reveal">
+            <div class="team-photo" style="background:linear-gradient(135deg,#112235,#1a7a8a);">👨‍⚕️</div>
+            <div class="team-info">
+                <div class="team-name">Dr. Besnik Hoxha</div>
+                <div class="team-role">Ortoped · Kirurg</div>
+            </div>
+        </div>
+        <div class="team-card reveal">
+            <div class="team-photo" style="background:linear-gradient(135deg,#0a1f35,#c9a96e55);">👩‍⚕️</div>
+            <div class="team-info">
+                <div class="team-name">Dr. Mirela Dashi</div>
+                <div class="team-role">Oftalmologe · Specialiste</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<script src="script.js"></script>
+<div id="footer"></div>
+
+
+<script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
+        });
+
+        fetch("footer.html")
+        .then(response => response.text())
+        .then(data => {
+        document.getElementById("footer").innerHTML = data;
+    });
+</script>
 </body>
 </html>
