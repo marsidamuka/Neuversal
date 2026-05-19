@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | Neuversal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="navbar"></div>
+<section id="blog-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-content">
+        <div class="hero-tag">Njohuri &amp; Perspektiva</div>
+        <h1 class="hero-title">Blog shëndetësor  <em>Neuversal</em></h1>
+        <p class="hero-sub">Mendime, strategji dhe njohuri nga ekipi ynë — mbi teknologji, inovacion dhe shëndetësi moderne.</p>
+    </div>
+</section>
+
+<!-- SEARCH + FILTERS -->
+<div class="blog-controls" id="blogControls">
+    <div class="controls-inner">
+        <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="text" id="searchInput" placeholder="Kërko artikuj..."/>
+        </div>
+        <div class="category-filters">
+            <button class="filter-btn active" data-cat="all">Të Gjitha</button>
+            <button class="filter-btn" data-cat="Teknologji">Teknologji</button>
+            <button class="filter-btn" data-cat="Inovacion">Inovacion</button>
+            <button class="filter-btn" data-cat="Shëndetësi">Shëndetësi</button>
+            <button class="filter-btn" data-cat="Strategji">Strategji</button>
+            <button class="filter-btn" data-cat="AI">Inteligjencë Artificiale</button>
+        </div>
+        <div class="results-count">Duke shfaqur <span id="visibleCount">8</span> artikuj</div>
+    </div>
+</div>
+
+<!-- MAIN BLOG AREA -->
+<div class="blog-wrapper">
+
+    <!-- FEATURED POST -->
+    <div class="featured-post" id="featuredPost">
+        <div class="featured-image">
+            <div class="img-overlay"></div>
+            <div class="feat-icon">🧠</div>
+            <div class="featured-badge">I Veçantë</div>
+        </div>
+        <div class="featured-content">
+            <div class="post-category">Inteligjencë Artificiale</div>
+            <h2 class="post-title">Si po transformon <em>AI</em> sistemet shëndetësore në nivel global</h2>
+            <p class="post-excerpt">Inteligjenca artificiale nuk është thjesht një mjet teknologjik — është një revolucion i qetë që po ridizajnon çdo aspekt të kujdesit shëndetësor, nga diagnoza deri te personalizimi i trajtimeve.</p>
+            <div class="post-meta">
+                <div class="meta-author">
+                    <div class="author-avatar">AK</div>
+                    <div>
+                        <div class="author-name">Arjan Kola</div>
+                        <div class="author-date">12 Maj 2025</div>
+                    </div>
+                </div>
+                <div class="read-time">8 min lexim</div>
+            </div>
+            <a class="read-link">Lexo Artikullin →</a>
+        </div>
+    </div>
+
+    <!-- ARTICLES + SIDEBAR -->
+    <div class="articles-main">
+        <div class="section-tag">Artikujt e Fundit</div>
+        <div class="articles-grid" id="articlesGrid">
+
+            <div class="article-card animate" data-cat="Teknologji" data-title="Blockchain dhe e ardhmja e regjistrimeve mjekësore" data-date="2025-05-08">
+                <div class="card-image">
+                    <div class="card-icon">⛓️</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">Teknologji</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Blockchain dhe e ardhmja e regjistrimeve mjekësore</h3>
+                    <p class="card-excerpt">Si teknologjia e blockchain po revolucionarizon menaxhimin e të dhënave shëndetësore duke garantuar privatësi dhe transparencë.</p>
+                    <div class="card-footer">
+                        <span class="card-date">8 Maj 2025</span>
+                        <span class="card-read">6 min →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card animate" data-cat="Inovacion" data-title="Printerët 3D në kirurgji: realitet apo ëndërr?" data-date="2025-05-02" style="animation-delay:0.1s">
+                <div class="card-image" style="background:linear-gradient(135deg,#0e3a2a,#1a7a5a)">
+                    <div class="card-icon">🖨️</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">Inovacion</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Printerët 3D në kirurgji: realitet apo ëndërr?</h3>
+                    <p class="card-excerpt">Ekipet kirurgjike në mbarë botën po adoptojnë printimin 3D për të krijuar modele anatomike dhe implante të personalizuara.</p>
+                    <div class="card-footer">
+                        <span class="card-date">2 Maj 2025</span>
+                        <span class="card-read">5 min →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card animate" data-cat="Shëndetësi" data-title="Telemjekësia pas pandemisë: çfarë mësuan pacientët" data-date="2025-04-25" style="animation-delay:0.2s">
+                <div class="card-image" style="background:linear-gradient(135deg,#1a2a5a,#3a4a9a)">
+                    <div class="card-icon">📱</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">Shëndetësi</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Telemjekësia pas pandemisë: çfarë mësuan pacientët</h3>
+                    <p class="card-excerpt">Konsultat online kaluan nga emergjencë në normë të re. Analizojmë ndikimet afatgjata dhe sfidat e mbetur.</p>
+                    <div class="card-footer">
+                        <span class="card-date">25 Prill 2025</span>
+                        <span class="card-read">7 min →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card animate" data-cat="Strategji" data-title="5 hapat e ndërtimit të një strategjie digjitale në klinikë" data-date="2025-04-18" style="animation-delay:0.3s">
+                <div class="card-image" style="background:linear-gradient(135deg,#2a1a0e,#8a5a1a)">
+                    <div class="card-icon">🗺️</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">Strategji</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">5 hapat e ndërtimit të një strategjie digjitale në klinikë</h3>
+                    <p class="card-excerpt">Transformimi digjital i një klinike nuk është thjesht teknologji — është ndryshim kulture, procesi dhe vizionit.</p>
+                    <div class="card-footer">
+                        <span class="card-date">18 Prill 2025</span>
+                        <span class="card-read">9 min →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card animate" data-cat="AI" data-title="Algoritmet prediktive dhe menaxhimi i sëmundjeve kronike" data-date="2025-04-10" style="animation-delay:0.15s">
+                <div class="card-image" style="background:linear-gradient(135deg,#0a1628,#1a4a6a)">
+                    <div class="card-icon">📊</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">AI</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Algoritmet prediktive dhe menaxhimi i sëmundjeve kronike</h3>
+                    <p class="card-excerpt">Si modelet e machine learning po ndihmojnë mjekët të parashikojnë dhe parandalojnë komplikacionet tek pacientët me diabet dhe sëmundje kardiovaskulare.</p>
+                    <div class="card-footer">
+                        <span class="card-date">10 Prill 2025</span>
+                        <span class="card-read">11 min →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card animate" data-cat="Teknologji" data-title="IoT në spital: sensorë inteligjentë dhe siguria e pacientit" data-date="2025-04-04" style="animation-delay:0.25s">
+                <div class="card-image" style="background:linear-gradient(135deg,#0e2a1a,#1a7a4a)">
+                    <div class="card-icon">📡</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">Teknologji</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">IoT në spital: sensorë inteligjentë dhe siguria e pacientit</h3>
+                    <p class="card-excerpt">Rrjetet e sensorëve të lidhur po mundësojnë monitorim real-time dhe reagim të shpejtë ndaj emergjencave spitalore.</p>
+                    <div class="card-footer">
+                        <span class="card-date">4 Prill 2025</span>
+                        <span class="card-read">6 min →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card animate" data-cat="Inovacion" data-title="Bioinxhinierimi: ndërtimi i organeve me qeliza staminale" data-date="2025-03-28" style="animation-delay:0.35s">
+                <div class="card-image" style="background:linear-gradient(135deg,#2a0e2a,#7a1a7a)">
+                    <div class="card-icon">🔬</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">Inovacion</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Bioinxhinierimi: ndërtimi i organeve me qeliza staminale</h3>
+                    <p class="card-excerpt">Shkencëtarët kanë bërë hapa gjigantë drejt krijimit të organeve funksionale laboratorike — një arritje që mund të eliminojë listat e pritjes për transplante.</p>
+                    <div class="card-footer">
+                        <span class="card-date">28 Mars 2025</span>
+                        <span class="card-read">10 min →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card animate" data-cat="Strategji" data-title="Partneritetet publik-privat në shëndetësi: modelet europiane" data-date="2025-03-21" style="animation-delay:0.4s">
+                <div class="card-image" style="background:linear-gradient(135deg,#1a1a0e,#5a5a1a)">
+                    <div class="card-icon">🤝</div>
+                    <div class="card-image-overlay"></div>
+                    <div class="card-cat-badge">Strategji</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Partneritetet publik-privat në shëndetësi: modelet europiane</h3>
+                    <p class="card-excerpt">Studim krahasues i modeleve të suksesshme PPP në Gjermani, Spanjë dhe Suedi — dhe çfarë mëson Shqipëria prej tyre.</p>
+                    <div class="card-footer">
+                        <span class="card-date">21 Mars 2025</span>
+                        <span class="card-read">8 min →</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NO RESULTS -->
+        <div class="no-results" id="noResults">
+            <div class="no-results-icon">🔍</div>
+            <h3>Nuk u gjet asnjë artikull</h3>
+            <p>Provo me terma të tjera ose pastro filtrat</p>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pagination" id="pagination">
+            <button class="page-btn prev-next">← Para</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn prev-next">Pas →</button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="blog-sidebar">
+
+        <!-- Popular Posts -->
+        <div class="sidebar-widget">
+            <div class="widget-head">Artikujt më të Lexuar</div>
+            <div class="widget-body">
+                <div class="popular-list">
+                    <div class="popular-item">
+                        <div class="pop-num">01</div>
+                        <div>
+                            <div class="pop-title">Si po transformon AI sistemet shëndetësore</div>
+                            <div class="pop-date">12 Maj 2025 · 8 min</div>
+                        </div>
+                    </div>
+                    <div class="popular-item">
+                        <div class="pop-num">02</div>
+                        <div>
+                            <div class="pop-title">Algoritmet prediktive dhe sëmundjet kronike</div>
+                            <div class="pop-date">10 Prill 2025 · 11 min</div>
+                        </div>
+                    </div>
+                    <div class="popular-item">
+                        <div class="pop-num">03</div>
+                        <div>
+                            <div class="pop-title">Bioinxhinierimi: organet me qeliza staminale</div>
+                            <div class="pop-date">28 Mars 2025 · 10 min</div>
+                        </div>
+                    </div>
+                    <div class="popular-item">
+                        <div class="pop-num">04</div>
+                        <div>
+                            <div class="pop-title">5 hapat e strategjisë digjitale në klinikë</div>
+                            <div class="pop-date">18 Prill 2025 · 9 min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-widget">
+            <div class="widget-head">Temat</div>
+            <div class="widget-body">
+                <div class="tags-cloud">
+                    <span class="tag-pill">AI</span>
+                    <span class="tag-pill">Blockchain</span>
+                    <span class="tag-pill">IoT</span>
+                    <span class="tag-pill">Telemjekësia</span>
+                    <span class="tag-pill">Kirurgji</span>
+                    <span class="tag-pill">Big Data</span>
+                    <span class="tag-pill">Genomika</span>
+                    <span class="tag-pill">Robotika</span>
+                    <span class="tag-pill">Privatësia</span>
+                    <span class="tag-pill">Inovacion</span>
+                    <span class="tag-pill">Klinika</span>
+                    <span class="tag-pill">Strategji</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="newsletter-widget">
+            <h4>Qëndro i Informuar</h4>
+            <p>Merr artikujt më të rinj të Neuversal direkt në inbox-in tënd.</p>
+            <input type="email" class="newsletter-input" placeholder="Email-i juaj..."/>
+            <button class="newsletter-btn">Abonohu →</button>
+        </div>
+
+    </aside>
+</div>
+
+
+<div id="footer"></div>
+
+<script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
+        });
+
+    // Search + Filter Logic
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.article-card');
+    const noResults = document.getElementById('noResults');
+    const visibleCount = document.getElementById('visibleCount');
+    const featuredPost = document.getElementById('featuredPost');
+
+    let activeCat = 'all';
+    let searchTerm = '';
+
+    function filterArticles() {
+        let visible = 0;
+        cards.forEach(card => {
+            const cat = card.dataset.cat;
+            const title = card.dataset.title.toLowerCase();
+            const bodyText = card.querySelector('.card-excerpt').textContent.toLowerCase();
+            const matchCat = activeCat === 'all' || cat === activeCat;
+            const matchSearch = title.includes(searchTerm) || bodyText.includes(searchTerm);
+            if (matchCat && matchSearch) {
+                card.classList.remove('hidden');
+                visible++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+        visibleCount.textContent = visible;
+        noResults.classList.toggle('visible', visible === 0);
+
+        // Hide featured post when filtering
+        const showFeatured = activeCat === 'all' && searchTerm === '';
+        featuredPost.style.display = showFeatured ? 'grid' : 'none';
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeCat = btn.dataset.cat;
+            filterArticles();
+        });
+    });
+
+    searchInput.addEventListener('input', e => {
+        searchTerm = e.target.value.toLowerCase().trim();
+        filterArticles();
+    });
+
+    // Tag pills filter by search
+    document.querySelectorAll('.tag-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+            const term = pill.textContent.trim();
+            searchInput.value = term;
+            searchTerm = term.toLowerCase();
+            // Reset category
+            filterBtns.forEach(b => b.classList.remove('active'));
+            filterBtns[0].classList.add('active');
+            activeCat = 'all';
+            filterArticles();
+            window.scrollTo({ top: document.getElementById('blogControls').offsetTop - 10, behavior:'smooth' });
+        });
+    });
+
+    // Pagination (cosmetic)
+    document.querySelectorAll('.page-btn').forEach(btn => {
+        if (!btn.classList.contains('prev-next')) {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.page-btn:not(.prev-next)').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        }
+    });
+
+    // Newsletter
+    document.querySelector('.newsletter-btn').addEventListener('click', () => {
+        const inp = document.querySelector('.newsletter-input');
+        if (inp.value.includes('@')) {
+            inp.value = '';
+            inp.placeholder = '✓ U abonuat me sukses!';
+            inp.style.borderColor = 'var(--gold)';
+        } else {
+            inp.style.borderColor = '#e74c3c';
+            inp.placeholder = 'Shkruani email-in tuaj!';
+        }
+    });
+    fetch("footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("footer").innerHTML = data;
+        });
+</script>
+</body>
+</html>
