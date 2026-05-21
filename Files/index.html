@@ -214,6 +214,57 @@
     </div>
 </section>
 
+
+<!-- FAQ -->
+<section id="faq">
+    <div class="section-tag reveal">Pyetje të Shpeshta</div>
+    <h2 class="section-title reveal">Keni <em>pyetje?</em></h2>
+    <div class="faq-grid">
+        <div class="faq-list reveal">
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    Si mund të rezervoj një vizitë? <span class="faq-arrow">+</span>
+                </div>
+                <div class="faq-a"><p>Mund të rezervoni online nëpërmjet formularit tonë, duke telefonuar numrin tonë, ose duke ardhur direkt në qendër. Konfirmimi bëhet brenda 24 orëve.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    A ofron Neuversal konsultime online? <span class="faq-arrow">+</span>
+                </div>
+                <div class="faq-a"><p>Po, ofrojmë teleconsultime me të gjithë specialistët tanë nëpërmjet platformës dixhitale, nga e hëna deri të dielën.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    Cilat sigurime pranohen? <span class="faq-arrow">+</span>
+                </div>
+                <div class="faq-a"><p>Punojmë me kryesore kompanitë e sigurimeve shëndetësore private në Shqipëri. Kontaktoni recepsionin tonë për informacion specifik.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    Sa kohë zgjat një konsultë e zakonshme? <span class="faq-arrow">+</span>
+                </div>
+                <div class="faq-a"><p>Konsultat standarde zgjasin 30–45 minuta. Vizitat e check-up mund të zgjasin deri 2 orë varësisht nga paketa e zgjedhur.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    A keni parking? <span class="faq-arrow">+</span>
+                </div>
+                <div class="faq-a"><p>Po, ofrojmë parking falas për të gjithë pacientët tanë brenda ambienteve të qendrës.</p></div>
+            </div>
+        </div>
+        <div class="faq-contact-box reveal">
+            <h3>Na kontaktoni direkt</h3>
+            <p>Ekipi ynë është i gatshëm t'ju ndihmojë me çdo pyetje ose nevojë shëndetësore.</p>
+            <div class="contact-details">
+                <div class="contact-detail"><div class="contact-detail-icon">📍</div> Rruga e Elbasanit, Tiranë, Shqipëri</div>
+                <div class="contact-detail"><div class="contact-detail-icon">📞</div> +355 69 XXX XXXX</div>
+                <div class="contact-detail"><div class="contact-detail-icon">📧</div> info@neuversal.al</div>
+                <div class="contact-detail"><div class="contact-detail-icon">🕐</div> E Hënë – E Shtunë: 08:00 – 20:00</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <div id="footer"></div>
 
 
@@ -225,12 +276,25 @@
         .then(data => {
             document.getElementById("navbar").innerHTML = data;
         });
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // FAQ
+    function toggleFaq(el) {
+        const item = el.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
         fetch("footer.html")
         .then(response => response.text())
         .then(data => {
         document.getElementById("footer").innerHTML = data;
     });
+
 </script>
 </body>
 </html>

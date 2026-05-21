@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontakt | Neuversal</title>
+    <LINK REL=StyleSheet HREF="style.css" >  </LINK>
+</head>
+<body>
+<div id="navbar"></div>
+<!-- CONTACT -->
+<section id="contact">
+    <div class="section-tag reveal">Na Kontaktoni</div>
+    <h2 class="section-title reveal">Dërgoni një <em>mesazh</em></h2>
+    <div class="contact-grid">
+        <form class="contact-form reveal" onsubmit="submitContact(event)">
+            <div class="input-row">
+                <div class="input-wrap">
+                    <label>Emri</label>
+                    <input type="text" placeholder="Emri juaj" required>
+                </div>
+                <div class="input-wrap">
+                    <label>Mbiemri</label>
+                    <input type="text" placeholder="Mbiemri juaj" required>
+                </div>
+            </div>
+            <div class="input-wrap">
+                <label>Email</label>
+                <input type="email" placeholder="email@example.com" required>
+            </div>
+            <div class="input-wrap">
+                <label>Telefon</label>
+                <input type="tel" placeholder="+355 6X XXX XXXX">
+            </div>
+            <div class="input-wrap">
+                <label>Mesazhi</label>
+                <textarea placeholder="Si mund t'ju ndihmojmë?" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="align-self:flex-start;">Dërgo Mesazhin →</button>
+        </form>
+        <div class="contact-info reveal">
+            <div class="map-placeholder" onclick="window.open('https://maps.google.com/?q=Tirana+Albania','_blank')">
+                <div class="map-icon">📍</div>
+                <div class="map-text">Hap në Google Maps</div>
+                <div class="map-address">Rruga e Elbasanit, Tiranë</div>
+            </div>
+            <div>
+                <h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:18px;color:var(--navy);">Orari i Punës</h4>
+                <div class="hours-grid">
+                    <div class="hour-item"><div class="hour-day">E Hënë – E Premte</div><div class="hour-time">08:00 – 20:00</div></div>
+                    <div class="hour-item"><div class="hour-day">E Shtunë</div><div class="hour-time">09:00 – 16:00</div></div>
+                    <div class="hour-item"><div class="hour-day">E Diel</div><div class="hour-time closed">Mbyllur</div></div>
+                    <div class="hour-item"><div class="hour-day">Urgjencë</div><div class="hour-time">24/7</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="footer"></div>
+
+<script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
+        });
+    fetch("footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("footer").innerHTML = data;
+        });
+</script>
+</body>
+</html>
