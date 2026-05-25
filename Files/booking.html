@@ -2,9 +2,486 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Rezervim | Neuversal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<div id="navbar"></div>
+
+<section class="booking-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-inner">
+        <div class="hero-tag">Rezervim online</div>
+        <h1 class="hero-title">Rezervoni <em>takimin</em> tuaj</h1>
+    </div>
+</section>
+
+<!-- MAIN BOOKING LAYOUT -->
+<div class="booking-wrapper">
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+        <div class="form-card-header">
+            <div class="section-tag">Formulari i rezervimit</div>
+            <h2>Të dhënat e <em>takimit</em></h2>
+        </div>
+
+        <div class="form-card-body" id="formBody">
+
+            <!-- STEP INDICATOR -->
+            <div class="steps-bar" id="stepsBar">
+                <div class="step-item active" id="si-1">
+                    <div class="step-circle active" id="sc-1"><span>1</span></div>
+                    <div class="step-label">Të dhënat</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item" id="si-2">
+                    <div class="step-circle" id="sc-2"><span>2</span></div>
+                    <div class="step-label">Shërbimi</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item" id="si-3">
+                    <div class="step-circle" id="sc-3"><span>3</span></div>
+                    <div class="step-label">Data & Mesazhi</div>
+                </div>
+            </div>
+
+            <!-- STEP 1: Personal Info -->
+            <div class="form-section active" id="step1">
+                <div class="field-row">
+                    <div class="field-wrap" id="fw-name">
+                        <label>Emri <span class="req">*</span></label>
+                        <input type="text" id="inp-name" placeholder="Emri juaj" autocomplete="given-name"/>
+                        <span class="err-msg">Ju lutemi shkruani emrin.</span>
+                    </div>
+                    <div class="field-wrap" id="fw-surname">
+                        <label>Mbiemri <span class="req">*</span></label>
+                        <input type="text" id="inp-surname" placeholder="Mbiemri juaj" autocomplete="family-name"/>
+                        <span class="err-msg">Ju lutemi shkruani mbiemrin.</span>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="field-wrap" id="fw-phone">
+                        <label>Numri i Telefonit <span class="req">*</span></label>
+                        <input type="tel" id="inp-phone" placeholder="+355 6X XXX XXXX" autocomplete="tel"/>
+                        <span class="err-msg">Ju lutemi shkruani numrin e telefonit.</span>
+                    </div>
+                </div>
+                <div class="form-nav">
+                    <span></span>
+                    <button class="btn-next" onclick="goTo(2)">
+                        Vazhdo <span>›</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Service -->
+            <div class="form-section" id="step2">
+                <div class="field-group">
+                    <div class="field-wrap" id="fw-service">
+                        <label>Zgjidhni Shërbimin <span class="req">*</span></label>
+                        <span class="err-msg">Ju lutemi zgjidhni një shërbim.</span>
+                    </div>
+                </div>
+                <div class="service-grid" id="serviceGrid">
+                    <input class="service-option" type="radio" name="service" id="svc1" value="Kontrolli i Përgjithshëm"/>
+                    <label class="service-label" for="svc1">
+                        <span class="svc-icon">🩺</span>
+                        <span class="svc-name">Kontroll i Përgjithshëm</span>
+                        <span class="svc-duration">30–45 min</span>
+                    </label>
+
+                    <input class="service-option" type="radio" name="service" id="svc2" value="Kardiologji"/>
+                    <label class="service-label" for="svc2">
+                        <span class="svc-icon">❤️</span>
+                        <span class="svc-name">Kardiologji</span>
+                        <span class="svc-duration">45–60 min</span>
+                    </label>
+
+                    <input class="service-option" type="radio" name="service" id="svc3" value="Dermatologji"/>
+                    <label class="service-label" for="svc3">
+                        <span class="svc-icon">✨</span>
+                        <span class="svc-name">Dermatologji</span>
+                        <span class="svc-duration">30 min</span>
+                    </label>
+
+                    <input class="service-option" type="radio" name="service" id="svc4" value="Ortopedi"/>
+                    <label class="service-label" for="svc4">
+                        <span class="svc-icon">🦴</span>
+                        <span class="svc-name">Ortopedi</span>
+                        <span class="svc-duration">45 min</span>
+                    </label>
+
+                    <input class="service-option" type="radio" name="service" id="svc5" value="Neurologji"/>
+                    <label class="service-label" for="svc5">
+                        <span class="svc-icon">🧠</span>
+                        <span class="svc-name">Neurologji</span>
+                        <span class="svc-duration">60 min</span>
+                    </label>
+
+                    <input class="service-option" type="radio" name="service" id="svc6" value="Pediatri"/>
+                    <label class="service-label" for="svc6">
+                        <span class="svc-icon">👶</span>
+                        <span class="svc-name">Pediatri</span>
+                        <span class="svc-duration">30 min</span>
+                    </label>
+                </div>
+                <div class="form-nav">
+                    <button class="btn-back" onclick="goTo(1)">‹ Kthehu</button>
+                    <button class="btn-next" onclick="goTo(3)">Vazhdo <span>›</span></button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Date + Message -->
+            <div class="form-section" id="step3">
+                <div class="field-row">
+                    <div class="field-wrap" id="fw-date">
+                        <label>Data e Takimit <span class="req">*</span></label>
+                        <input type="date" id="inp-date"/>
+                        <span class="err-msg">Ju lutemi zgjidhni një datë.</span>
+                    </div>
+                    <div class="field-wrap">
+                        <label>Ora e Preferuar</label>
+                        <div class="select-wrap">
+                            <select id="inp-time">
+                                <option value="">Zgjidhni orën</option>
+                                <option>08:00 – 09:00</option>
+                                <option>09:00 – 10:00</option>
+                                <option>10:00 – 11:00</option>
+                                <option>11:00 – 12:00</option>
+                                <option>13:00 – 14:00</option>
+                                <option>14:00 – 15:00</option>
+                                <option>15:00 – 16:00</option>
+                                <option>16:00 – 17:00</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="field-wrap">
+                        <label>Mesazh (opsional)</label>
+                        <textarea id="inp-msg" placeholder="Çfarë dëshironi të na tregoni? Simptomat, pyetjet ose çdo gjë tjetër që mendoni se është e rëndësishme..."></textarea>
+                    </div>
+                </div>
+                <div class="form-nav">
+                    <button class="btn-back" onclick="goTo(2)">‹ Kthehu</button>
+                    <button class="btn-submit" onclick="submitForm()">
+                        ✓ Rezervo Takimin
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div class="success-state" id="successState">
+            <div class="success-icon">✓</div>
+            <h3>Takimi u <em>Konfirmua!</em></h3>
+            <p>Faleminderit! Rezervimi juaj u regjistrua me sukses. Do t'ju kontaktojmë brenda 24 orëve për ta konfirmuar takimin.</p>
+            <div class="booking-ref" id="bookingRef">REF · #KLN-0000</div>
+            <button class="btn-submit" onclick="resetForm()" style="margin:0 auto;">
+                ＋ Rezervo Tjetër Takim
+            </button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="booking-sidebar">
+
+        <!-- Summary -->
+        <div class="info-card">
+            <div class="info-card-header">Përmbledhja e Rezervimit</div>
+            <div class="info-card-body">
+                <div class="summary-rows">
+                    <div class="summary-row">
+                        <span class="sum-label">Pacienti</span>
+                        <span class="sum-val placeholder" id="sum-name">—</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row">
+                        <span class="sum-label">Telefoni</span>
+                        <span class="sum-val placeholder" id="sum-phone">—</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row">
+                        <span class="sum-label">Shërbimi</span>
+                        <span class="sum-val placeholder" id="sum-svc">—</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row">
+                        <span class="sum-label">Data</span>
+                        <span class="sum-val placeholder" id="sum-date">—</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row">
+                        <span class="sum-label">Ora</span>
+                        <span class="sum-val placeholder" id="sum-time">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why us -->
+        <div class="info-card">
+            <div class="info-card-header">Pse të zgjidhni Neuversal?</div>
+            <div class="info-card-body">
+                <div class="why-list">
+                    <div class="why-item">
+                        <div class="why-icon">🏆</div>
+                        <div class="why-text">
+                            <h5>Staf i Specializuar</h5>
+                            <p>Mjekë me mbi 15 vjet eksperiencë ndërkombëtare.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">⚡</div>
+                        <div class="why-text">
+                            <h5>Konfirmim i Shpejtë</h5>
+                            <p>Rezervimet konfirmohen brenda 24 orëve.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">🔒</div>
+                        <div class="why-text">
+                            <h5>Privatësi e Garantuar</h5>
+                            <p>Të dhënat tuaja janë të sigurta dhe konfidenciale.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact mini -->
+        <div class="contact-mini">
+            <h4>Na Kontaktoni</h4>
+            <div class="contact-mini-row">
+                <div class="c-icon">📞</div>
+                <span>+355 69 XXX XXXX</span>
+            </div>
+            <div class="contact-mini-row">
+                <div class="c-icon">✉️</div>
+                <span>info@neuversal.al</span>
+            </div>
+            <div class="contact-mini-row">
+                <div class="c-icon">🕐</div>
+                <span>E Hënë – E shtunë, 08:00–20:00</span>
+            </div>
+        </div>
+
+    </aside>
+</div>
+<div id="footer"></div>
+
+<script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
+        });
+    let currentStep = 1;
+
+    // Set min date to today
+    const dateInput = document.getElementById('inp-date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    function goTo(step) {
+        // Validate current step before moving forward
+        if (step > currentStep && !validateStep(currentStep)) return;
+
+        // Update step circles
+        for (let i = 1; i <= 3; i++) {
+            const circle = document.getElementById('sc-' + i);
+            const item = document.getElementById('si-' + i);
+            circle.classList.remove('active', 'done');
+            item.classList.remove('active');
+            if (i < step) {
+                circle.classList.add('done');
+            } else if (i === step) {
+                circle.classList.add('active');
+                item.classList.add('active');
+            }
+        }
+
+        // Switch form sections
+        document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + step).classList.add('active');
+        currentStep = step;
+
+        // Scroll to top of form
+        document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        updateSummary();
+    }
+
+    function validateStep(step) {
+        let valid = true;
+
+        if (step === 1) {
+            const name = document.getElementById('inp-name');
+            const surname = document.getElementById('inp-surname');
+            const phone = document.getElementById('inp-phone');
+
+            [name, surname, phone].forEach(inp => {
+                const wrap = inp.closest('.field-wrap');
+                if (!inp.value.trim()) {
+                    wrap.classList.add('has-error');
+                    inp.classList.add('error');
+                    valid = false;
+                } else {
+                    wrap.classList.remove('has-error');
+                    inp.classList.remove('error');
+                }
+            });
+
+            // Regex për emër/mbiemër (shkronja + hapësira)
+            const nameRegex = /^[A-Za-zÇËçë\s'-]+$/;
+
+            [name, surname].forEach(inp => {
+                const wrap = inp.closest('.field-wrap');
+                if (!inp.value.trim() || !nameRegex.test(inp.value.trim())) {
+                    wrap.classList.add('has-error');
+                    inp.classList.add('error');
+                    valid = false;
+                } else {
+                    wrap.classList.remove('has-error');
+                    inp.classList.remove('error');
+                }
+            });
+
+            // Validim i telefonit me regex
+            const phoneRegex = /^\+3556\d{7,8}$/;
+            const wrapPhone = phone.closest('.field-wrap');
+            if (!phoneRegex.test(phone.value.trim())) {
+                wrapPhone.classList.add('has-error');
+                phone.classList.add('error');
+                valid = false;
+            } else {
+                wrapPhone.classList.remove('has-error');
+                phone.classList.remove('error');
+            }
+        }
+
+        if (step === 2) {
+            const checked = document.querySelector('input[name="service"]:checked');
+            const wrap = document.getElementById('fw-service');
+            if (!checked) {
+                wrap.classList.add('has-error');
+                valid = false;
+            } else {
+                wrap.classList.remove('has-error');
+            }
+        }
+
+        if (step === 3) {
+            const date = document.getElementById('inp-date');
+            const wrap = document.getElementById('fw-date');
+            if (!date.value) {
+                wrap.classList.add('has-error');
+                date.classList.add('error');
+                valid = false;
+            } else {
+                wrap.classList.remove('has-error');
+                date.classList.remove('error');
+            }
+        }
+
+        return valid;
+    }
+
+    function updateSummary() {
+        const name = document.getElementById('inp-name').value;
+        const surname = document.getElementById('inp-surname').value;
+        const phone = document.getElementById('inp-phone').value;
+        const svc = document.querySelector('input[name="service"]:checked');
+        const date = document.getElementById('inp-date').value;
+        const time = document.getElementById('inp-time').value;
+
+        const set = (id, val, placeholder) => {
+            const el = document.getElementById(id);
+            if (val) {
+                el.textContent = val;
+                el.classList.remove('placeholder');
+            } else {
+                el.textContent = '—';
+                el.classList.add('placeholder');
+            }
+        };
+
+        set('sum-name', (name || surname) ? ((name + ' ' + surname).trim()) : '');
+        set('sum-phone', phone);
+        set('sum-svc', svc ? svc.value : '');
+        if (date) {
+            const d = new Date(date);
+            const fmt = d.toLocaleDateString('sq-AL', { day:'2-digit', month:'long', year:'numeric' });
+            set('sum-date', fmt);
+        } else {
+            set('sum-date', '');
+        }
+        set('sum-time', time);
+    }
+
+    // Live update summary as user types
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.addEventListener('input', updateSummary);
+        el.addEventListener('change', updateSummary);
+    });
+
+    // Clear error on input
+    ['inp-name','inp-surname','inp-phone','inp-date'].forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener('input', function(){
+            this.classList.remove('error');
+            this.closest('.field-wrap').classList.remove('has-error');
+        });
+    });
+    document.querySelectorAll('input[name="service"]').forEach(r => {
+        r.addEventListener('change', () => {
+            document.getElementById('fw-service').classList.remove('has-error');
+            updateSummary();
+        });
+    });
+
+    function submitForm() {
+        if (!validateStep(3)) return;
+
+        // Generate ref
+        const ref = 'KLN-' + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('bookingRef').textContent = 'REF · #' + ref;
+
+        // Hide form, show success
+        document.getElementById('stepsBar').style.display = 'none';
+        document.querySelectorAll('.form-section').forEach(s => s.style.display = 'none');
+        document.getElementById('successState').classList.add('visible');
+        document.querySelector('.form-card-header h2').innerHTML = 'Rezervimi u <em>Krye!</em>';
+    }
+
+    function resetForm() {
+        // Reset fields
+        document.querySelectorAll('input:not([type="radio"]), textarea, select').forEach(el => el.value = '');
+        document.querySelectorAll('input[name="service"]').forEach(r => r.checked = false);
+
+        // Restore UI
+        document.getElementById('stepsBar').style.display = '';
+        document.querySelectorAll('.form-section').forEach(s => s.style.display = '');
+        document.getElementById('successState').classList.remove('visible');
+        document.querySelector('.form-card-header h2').innerHTML = 'Të dhënat e <em>takimit</em>';
+        goTo(1);
+        updateSummary();
+    }
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+        document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 40);
+    });
+    fetch("footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("footer").innerHTML = data;
+        });
+</script>
 </body>
 </html>

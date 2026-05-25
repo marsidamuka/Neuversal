@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shërbimet</title>
+    <title>Shërbimet | Neuversal </title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="sidebar-cta">
             <h4>Keni nevojë për ndihmë?</h4>
             <p>Ekipi ynë është gati t'ju orientojë drejt shërbimit të duhur.</p>
-            <a href="index.html#booking">Rezervo Konsultë →</a>
+            <a href="booking.html">Rezervo Konsultë →</a>
         </div>
     </aside>
 
@@ -430,7 +430,52 @@
         .then(data => {
             document.getElementById("navbar").innerHTML = data;
         });
+    /* ── scroll progress ── */
+    window.addEventListener('scroll', () => {
+        const el = document.getElementById('scrollBar');
+        const pct = (scrollY / (document.body.scrollHeight - innerHeight)) * 100;
+        el.style.width = pct + '%';
+        document.getElementById('navbar').classList.toggle('scrolled', scrollY > 50);
+        highlightSidebar();
+    });
 
+    /* ── mobile menu ── */
+    function toggleMenu() {
+        document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    /* ── sidebar active highlight on scroll ── */
+    const sections = ['kardiologji','neurologi','ortopedi','oftalmologji','checkup','online'];
+    function highlightSidebar() {
+        let current = sections[0];
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && el.getBoundingClientRect().top < 180) current = id;
+        });
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+    }
+
+    /* ── sidebar click ── */
+    function setActive(el) {
+        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    /* ── accordion ── */
+    function toggleAcc(head) {
+        const item = head.closest('.acc-item');
+        const isOpen = item.classList.contains('open');
+        item.closest('.acc-list').querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    /* ── scroll reveal ── */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.service-section').forEach(el => observer.observe(el));
     fetch("footer.html")
         .then(response => response.text())
         .then(data => {
