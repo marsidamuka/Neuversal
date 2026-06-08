@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Panel </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="astyle.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+    <div class="login-bg"></div>
+    <div class="login-orb lo1"></div>
+    <div class="login-orb lo2"></div>
+    <div class="login-card">
+        <div class="login-logo">NEU<span>∴</span>VERSAL</div>
+        <div class="login-sub">Paneli i Administratorit</div>
+        <div class="login-field">
+            <label>Emri i Përdoruesit</label>
+            <input type="text" id="loginUser" placeholder="admin" value="admin"/>
+        </div>
+        <div class="login-field">
+            <label>Fjalëkalimi</label>
+            <input type="password" id="loginPass" placeholder="••••••••" value="admin123"/>
+        </div>
+        <button class="login-btn" onclick="doLogin()">Hyr në Panel</button>
+        <div class="login-err" id="loginErr">Kredencialet janë të gabuara.</div>
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <div class="brand-logo">NEU<span>∴</span>VERSAL</div>
+        <div class="brand-role">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section-label">Kryesore</div>
+        <div class="nav-item active" onclick="switchView('dashboard',this)">
+            <span class="ni-icon">📊</span> Pasqyra
+        </div>
+        <div class="nav-item" onclick="switchView('bookings',this)">
+            <span class="ni-icon">📋</span> Rezervimet
+            <span class="ni-badge red" id="pendingBadge">3</span>
+        </div>
+        <div class="nav-item" onclick="switchView('calendar',this)">
+            <span class="ni-icon">📅</span> Kalendari
+        </div>
+        <div class="nav-section-label">Menaxhim</div>
+        <div class="nav-item" onclick="switchView('patients',this)">
+            <span class="ni-icon">👥</span> Pacientët
+        </div>
+        <div class="nav-item" onclick="switchView('stats',this)">
+            <span class="ni-icon">📈</span> Statistikat
+        </div>
+        <div class="nav-section-label">Sistem</div>
+        <div class="nav-item" onclick="switchView('settings',this)">
+            <span class="ni-icon">⚙️</span> Cilësimet
+        </div>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="admin-profile">
+            <div class="admin-avatar">A</div>
+            <div>
+                <div class="admin-name">Admin</div>
+                <div class="admin-label">Menaxher</div>
+            </div>
+            <button class="logout-btn" onclick="doLogout()" title="Dil">⏻</button>
+        </div>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main" id="mainArea">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-title" id="pageTitle">Pasqyra <em>Kryesore</em></div>
+            <div class="page-crumb" id="pageCrumb">Mirë se erdhe</div>
+        </div>
+        <div class="topbar-right">
+            <button class="topbar-btn outline" onclick="switchView('bookings',null)">+ Rezervim i Ri</button>
+            <div class="notif-bell" title="Njoftime"><span>🔔</span><div class="notif-dot"></div></div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- ── DASHBOARD ── -->
+        <div class="view active" id="view-dashboard">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Takime Sot</div>
+                    <div class="kpi-val teal">8</div>
+                    <div class="kpi-sub"><span class="up">↑ 2</span> krahasuar me djeshmin</div>
+                    <div class="kpi-icon">📅</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Në Pritje</div>
+                    <div class="kpi-val gold">3</div>
+                    <div class="kpi-sub">Kërkojnë konfirmim</div>
+                    <div class="kpi-icon">⏳</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Pacientë Totalë</div>
+                    <div class="kpi-val">124</div>
+                    <div class="kpi-sub"><span class="up">↑ 8</span> këtë muaj</div>
+                    <div class="kpi-icon">👥</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Këtë Javë</div>
+                    <div class="kpi-val green">31</div>
+                    <div class="kpi-sub"><span class="up">↑ 12%</span> vs java e kaluar</div>
+                    <div class="kpi-icon">📈</div>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-head">
+                    <h3>Rezervimet <em>e Sotme</em></h3>
+                    <div class="table-controls">
+                        <span style="font-size:12px;color:var(--gray);">25 Maj 2026</span>
+                    </div>
+                </div>
+                <table id="todayTable">
+                    <thead><tr>
+                        <th>Pacienti</th><th>Shërbimi</th><th>Ora</th><th>Statusi</th><th>Veprime</th>
+                    </tr></thead>
+                    <tbody id="todayTbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ── BOOKINGS ── -->
+        <div class="view" id="view-bookings">
+            <div class="table-card">
+                <div class="table-head">
+                    <h3>Të Gjitha <em>Rezervimet</em></h3>
+                    <div class="table-controls">
+                        <div class="tbl-search">
+                            <input type="text" id="bookSearch" placeholder="Kërko pacientin..." oninput="filterBookings()"/>
+                        </div>
+                        <div class="select-wrapper">
+                            <select class="filter-select" id="statusFilter" onchange="filterBookings()">
+                                <option value="">Të gjitha statuset</option>
+                                <option value="pending">Në Pritje</option>
+                                <option value="confirmed">Konfirmuar</option>
+                                <option value="completed">Përfunduar</option>
+                                <option value="cancelled">Anuluar</option>
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <select class="filter-select" id="svcFilter" onchange="filterBookings()">
+                                <option value="">Të gjitha shërbimet</option>
+                                <option>Kontroll i Përgjithshëm</option>
+                                <option>Kardiologji</option>
+                                <option>Dermatologji</option>
+                                <option>Ortopedi</option>
+                                <option>Neurologji</option>
+                                <option>Pediatri</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <table>
+                    <thead><tr>
+                        <th>Pacienti</th><th>Telefoni</th><th>Shërbimi</th>
+                        <th>Data</th><th>Ora</th><th>Statusi</th><th>Veprime</th>
+                    </tr></thead>
+                    <tbody id="bookingsTbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ── CALENDAR ── -->
+        <div class="view" id="view-calendar">
+            <div class="cal-wrapper">
+                <div class="cal-card">
+                    <div class="cal-nav">
+                        <h3 id="calMonthTitle">Maj <em>2026</em></h3>
+                        <div class="cal-nav-btns">
+                            <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+                            <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
+                        </div>
+                    </div>
+                    <div class="cal-grid">
+                        <div class="cal-days-hdr">
+                            <div class="cal-day-name">Hën</div><div class="cal-day-name">Mar</div>
+                            <div class="cal-day-name">Mër</div><div class="cal-day-name">Enj</div>
+                            <div class="cal-day-name">Pre</div><div class="cal-day-name">Sht</div>
+                            <div class="cal-day-name">Die</div>
+                        </div>
+                        <div class="cal-cells" id="calCells"></div>
+                    </div>
+                </div>
+                <div class="cal-day-list">
+                    <div class="cal-day-hdr">
+                        <h4 id="calDayTitle">Sot, <em>25 Maj</em></h4>
+                    </div>
+                    <div class="day-apts" id="dayApts"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PATIENTS ── -->
+        <div class="view" id="view-patients">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+                <div>
+                    <div class="kpi-label">Pacientë të Regjistruar</div>
+                    <div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--navy);">124 <em style="font-size:18px;color:var(--teal);font-style:italic;">total</em></div>
+                </div>
+                <div class="tbl-search">
+                    <input type="text" id="patSearch" placeholder="Kërko pacientin..." oninput="filterPatients()"/>
+                </div>
+            </div>
+            <div class="patients-grid" id="patientsGrid"></div>
+        </div>
+
+        <!-- ── STATS ── -->
+        <div class="view" id="view-stats">
+            <div class="kpi-grid" style="margin-bottom:24px;">
+                <div class="kpi-card"><div class="kpi-label">Total Rezervime</div><div class="kpi-val">412</div><div class="kpi-sub">Nga fillimi</div><div class="kpi-icon">📋</div></div>
+                <div class="kpi-card"><div class="kpi-label">Shkalla Konfirmimit</div><div class="kpi-val teal">87%</div><div class="kpi-sub"><span class="up">↑ 3%</span> vs muaji i kaluar</div><div class="kpi-icon">✅</div></div>
+                <div class="kpi-card"><div class="kpi-label">Mesatare / Ditë</div><div class="kpi-val gold">6.4</div><div class="kpi-sub">Takime për ditë</div><div class="kpi-icon">📊</div></div>
+                <div class="kpi-card"><div class="kpi-label">Anulime</div><div class="kpi-val" style="color:var(--red);">8%</div><div class="kpi-sub"><span class="up">↓ 2%</span> vs muaji i kaluar</div><div class="kpi-icon">❌</div></div>
+            </div>
+            <div class="stats-row">
+                <div class="chart-card">
+                    <h3>Rezervime <em>Javore</em></h3>
+                    <div class="bar-chart" id="barChart"></div>
+                </div>
+                <div class="chart-card">
+                    <h3>Statuset <em>e Takimeve</em></h3>
+                    <div class="donut-wrap">
+                        <div class="donut">
+                            <svg width="140" height="140" viewBox="0 0 140 140">
+                                <circle cx="70" cy="70" r="54" fill="none" stroke="#f0f0f5" stroke-width="20"/>
+                                <circle cx="70" cy="70" r="54" fill="none" stroke="#1a7a8a" stroke-width="20" stroke-dasharray="190 149" stroke-linecap="round"/>
+                                <circle cx="70" cy="70" r="54" fill="none" stroke="#2ea87e" stroke-width="20" stroke-dasharray="82 257" stroke-dashoffset="-190" stroke-linecap="round"/>
+                                <circle cx="70" cy="70" r="54" fill="none" stroke="#c9a96e" stroke-width="20" stroke-dasharray="49 290" stroke-dashoffset="-272" stroke-linecap="round"/>
+                                <circle cx="70" cy="70" r="54" fill="none" stroke="#e05c5c" stroke-width="20" stroke-dasharray="18 321" stroke-dashoffset="-321" stroke-linecap="round"/>
+                            </svg>
+                            <div class="donut-center"><div class="donut-num">412</div><div class="donut-sub">Total</div></div>
+                        </div>
+                        <div class="donut-legend">
+                            <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div><div class="legend-label">Konfirmuar</div><div class="legend-pct">46%</div></div>
+                            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><div class="legend-label">Përfunduar</div><div class="legend-pct">20%</div></div>
+                            <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div><div class="legend-label">Në Pritje</div><div class="legend-pct">12%</div></div>
+                            <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><div class="legend-label">Anuluar</div><div class="legend-pct">8%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Shërbimet <em>më të Kërkuara</em></h3>
+                <div class="top-services" id="topServices"></div>
+            </div>
+        </div>
+
+        <!-- ── SETTINGS ── -->
+        <div class="view" id="view-settings">
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <div class="settings-card-hdr">Profili i Klinikës</div>
+                    <div class="settings-card-body">
+                        <div class="field-wrap"><label style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Emri i Klinikës</label><input class="settings-input" value="NEU∴VERSAL"/></div>
+                        <div class="field-wrap"><label style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Email Kontakti</label><input class="settings-input" value="info@neuversal.al"/></div>
+                        <div class="field-wrap"><label style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Telefoni</label><input class="settings-input" value="+355 69 XXX XXXX"/></div>
+                        <div class="field-wrap"><label style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Adresa</label><input class="settings-input" value="Rruga e Elbasanit, Tiranë"/></div>
+                        <button class="save-btn" onclick="showToast('Profili u ruajt me sukses!','success')">Ruaj Ndryshimet</button>
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <div class="settings-card-hdr">Njoftime & Automatizim</div>
+                    <div class="settings-card-body">
+                        <div class="setting-row">
+                            <div class="setting-info"><h5>SMS Konfirmimi</h5><p>Dërgo SMS kur rezervimi konfirmohet</p></div>
+                            <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><h5>Kujtesë 24h</h5><p>Njofto pacientin 24h para takimit</p></div>
+                            <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><h5>Email Admin</h5><p>Merr email për çdo rezervim të ri</p></div>
+                            <button class="toggle" onclick="this.classList.toggle('on')"></button>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><h5>Rezervim Automatik</h5><p>Konfirmo automatikisht rezervimet</p></div>
+                            <button class="toggle" onclick="this.classList.toggle('on')"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <div class="settings-card-hdr">Orari i Punës</div>
+                    <div class="settings-card-body">
+                        <div class="setting-row"><div class="setting-info"><h5>E Hënë – E Premte</h5><p>08:00 – 20:00</p></div><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+                        <div class="setting-row"><div class="setting-info"><h5>E Shtunë</h5><p>08:00 – 19:00</p></div><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
+                        <div class="setting-row"><div class="setting-info"><h5>E Diel</h5><p>Mbyllur</p></div><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
+                        <button class="save-btn" style="margin-top:12px;" onclick="showToast('Orari u ruajt!','success')">Ruaj Orarin</button>
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <div class="settings-card-hdr">Siguria</div>
+                    <div class="settings-card-body">
+                        <div class="field-wrap" style="margin-bottom:14px;"><label style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Fjalëkalimi Aktual</label><input class="settings-input" type="password" placeholder="••••••••"/></div>
+                        <div class="field-wrap" style="margin-bottom:14px;"><label style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Fjalëkalimi i Ri</label><input class="settings-input" type="password" placeholder="••••••••"/></div>
+                        <div class="field-wrap" style="margin-bottom:16px;"><label style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Konfirmo Fjalëkalimin</label><input class="settings-input" type="password" placeholder="••••••••"/></div>
+                        <button class="save-btn" onclick="showToast('Fjalëkalimi u ndryshua!','success')">Ndrysho Fjalëkalimin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+        <div class="modal-hdr">
+            <div>
+                <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;">Detajet e Rezervimit</div>
+                <h3 id="modalTitle">Emri <em>Mbiemri</em></h3>
+            </div>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="detail-grid" id="modalGrid"></div>
+            <div class="detail-msg" id="modalMsgWrap">
+                <div class="detail-label">Mesazhi i Pacientit</div>
+                <div class="detail-val" id="modalMsg"></div>
+            </div>
+            <div class="modal-actions" id="modalActions"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ── DATA ──
+    let bookings = [
+        {id:1,name:'Arjana',surname:'Hoxha',phone:'+355 69 111 2233',service:'Kardiologji',date:'2026-05-25',time:'08:00 – 09:00',status:'confirmed',msg:'Kam dhimbje gjoksi që nga java e kaluar.'},
+        {id:2,name:'Blerim',surname:'Çela',phone:'+355 68 222 3344',service:'Kontroll i Përgjithshëm',date:'2026-05-25',time:'09:00 – 10:00',status:'pending',msg:''},
+        {id:3,name:'Dorina',surname:'Marku',phone:'+355 67 333 4455',service:'Dermatologji',date:'2026-05-25',time:'10:00 – 11:00',status:'confirmed',msg:'Dua të kontrolloj një njollë në krah.'},
+        {id:4,name:'Gentian',surname:'Basha',phone:'+355 69 444 5566',service:'Ortopedi',date:'2026-05-26',time:'11:00 – 12:00',status:'pending',msg:'Dhimbje në gju pas sportin.'},
+        {id:5,name:'Erjona',surname:'Leka',phone:'+355 68 555 6677',service:'Neurologji',date:'2026-05-26',time:'14:00 – 15:00',status:'confirmed',msg:''},
+        {id:6,name:'Sokol',surname:'Dema',phone:'+355 67 666 7788',service:'Pediatri',date:'2026-05-27',time:'09:00 – 10:00',status:'pending',msg:'Fëmija im ka temperaturë të lartë.'},
+        {id:7,name:'Mirela',surname:'Koci',phone:'+355 69 777 8899',service:'Kardiologji',date:'2026-05-28',time:'10:00 – 11:00',status:'completed',msg:'Kontroll rutinë vjetor.'},
+        {id:8,name:'Alban',surname:'Shehu',phone:'+355 68 888 9900',service:'Kontroll i Përgjithshëm',date:'2026-05-20',time:'08:00 – 09:00',status:'cancelled',msg:''},
+        {id:9,name:'Fatmira',surname:'Ago',phone:'+355 67 999 0011',service:'Dermatologji',date:'2026-05-29',time:'15:00 – 16:00',status:'confirmed',msg:'Alergjia sezonale.'},
+        {id:10,name:'Ilir',surname:'Prifti',phone:'+355 69 000 1122',service:'Ortopedi',date:'2026-05-30',time:'13:00 – 14:00',status:'confirmed',msg:''},
+    ];
+
+    const months = ['Janar','Shkurt','Mars','Prill','Maj','Qershor','Korrik','Gusht','Shtator','Tetor','Nëntor','Dhjetor'];
+    let calDate = new Date(2026,4,1);
+    let selectedCalDay = 25;
+
+    // ── LOGIN ──
+    function doLogin(){
+        const u=document.getElementById('loginUser').value;
+        const p=document.getElementById('loginPass').value;
+        if(u==='admin'&&p==='admin123'){
+            document.getElementById('loginScreen').style.display='none';
+            initDashboard();
+        } else {
+            document.getElementById('loginErr').style.display='block';
+        }
+    }
+    document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+    function doLogout(){document.getElementById('loginScreen').style.display='flex';}
+
+    // ── INIT ──
+    function initDashboard(){
+        renderTodayTable();
+        renderBookingsTable();
+        renderPatients();
+        renderCalendar();
+        renderStats();
+        updatePendingBadge();
+    }
+
+    // ── VIEWS ──
+    const viewTitles={
+        dashboard:['Pasqyra <em>Kryesore</em>','Mirë se erdhe, Admin'],
+        bookings:['Të Gjitha <em>Rezervimet</em>','Menaxho & filtro rezervimet'],
+        calendar:['Kalendari <em>i Takimeve</em>','Shiko takimet sipas ditës'],
+        patients:['Lista e <em>Pacientëve</em>','Të gjithë pacientët e regjistruar'],
+        stats:['Statistikat <em>& Raportet</em>','Analiza e performancës'],
+        settings:['Cilësimet <em>e Sistemit</em>','Konfiguro platformën'],
+    };
+    function switchView(name,el){
+        document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+        document.getElementById('view-'+name).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+        if(el)el.classList.add('active');
+        const t=viewTitles[name];
+        document.getElementById('pageTitle').innerHTML=t[0];
+        document.getElementById('pageCrumb').textContent=t[1];
+    }
+
+    // ── STATUS HELPERS ──
+    function badgeHtml(s){
+        const map={pending:'Në Pritje',confirmed:'Konfirmuar',completed:'Përfunduar',cancelled:'Anuluar'};
+        return `<span class="badge ${s}">${map[s]}</span>`;
+    }
+
+    // ── TODAY TABLE ──
+    function renderTodayTable(){
+        const today=bookings.filter(b=>b.date==='2026-05-25');
+        const tb=document.getElementById('todayTbody');
+        tb.innerHTML=today.map(b=>`
+    <tr onclick="openModal(${b.id})">
+      <td class="td-name">${b.name} ${b.surname}</td>
+      <td><span class="td-svc">🏥 ${b.service}</span></td>
+      <td>${b.time}</td>
+      <td>${badgeHtml(b.status)}</td>
+      <td><div class="action-btns" onclick="event.stopPropagation()">
+        <button class="act-btn view-btn" onclick="openModal(${b.id})" title="Shiko">👁</button>
+        ${b.status==='pending'?`<button class="act-btn confirm" onclick="confirmBooking(${b.id})" title="Konfirmo">✓</button>
+        <button class="act-btn cancel" onclick="cancelBooking(${b.id})" title="Anulo">✕</button>`:''}
+      </div></td>
+    </tr>`).join('');
+    }
+
+    // ── BOOKINGS TABLE ──
+    function renderBookingsTable(data){
+        const rows=data||bookings;
+        const tb=document.getElementById('bookingsTbody');
+        if(!rows.length){tb.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">📭</div><h4>Nuk ka rezultate</h4><p>Provoni filtra të tjerë.</p></div></td></tr>';return;}
+        tb.innerHTML=rows.map(b=>`
+    <tr onclick="openModal(${b.id})">
+      <td><div class="td-name">${b.name} ${b.surname}</div></td>
+      <td class="td-phone">${b.phone}</td>
+      <td><span class="td-svc">${b.service}</span></td>
+      <td>${formatDate(b.date)}</td>
+      <td>${b.time||'—'}</td>
+      <td>${badgeHtml(b.status)}</td>
+      <td><div class="action-btns" onclick="event.stopPropagation()">
+        <button class="act-btn view-btn" onclick="openModal(${b.id})" title="Shiko">👁</button>
+        ${b.status==='pending'?`<button class="act-btn confirm" onclick="confirmBooking(${b.id})" title="Konfirmo">✓</button>`:''}
+        ${b.status!=='cancelled'&&b.status!=='completed'?`<button class="act-btn cancel" onclick="cancelBooking(${b.id})" title="Anulo">✕</button>`:''}
+      </div></td>
+    </tr>`).join('');
+    }
+    function filterBookings(){
+        const q=document.getElementById('bookSearch').value.toLowerCase();
+        const st=document.getElementById('statusFilter').value;
+        const sv=document.getElementById('svcFilter').value;
+        const res=bookings.filter(b=>{
+            const match=`${b.name} ${b.surname} ${b.phone}`.toLowerCase().includes(q);
+            const stMatch=!st||b.status===st;
+            const svMatch=!sv||b.service===sv;
+            return match&&stMatch&&svMatch;
+        });
+        renderBookingsTable(res);
+    }
+
+    // ── PATIENTS ──
+    const patients=[
+        {name:'Arjana Hoxha',phone:'+355 69 111 2233',apts:3,last:'Kardiologji'},
+        {name:'Blerim Çela',phone:'+355 68 222 3344',apts:1,last:'Kontroll i Përgjithshëm'},
+        {name:'Dorina Marku',phone:'+355 67 333 4455',apts:2,last:'Dermatologji'},
+        {name:'Gentian Basha',phone:'+355 69 444 5566',apts:1,last:'Ortopedi'},
+        {name:'Erjona Leka',phone:'+355 68 555 6677',apts:4,last:'Neurologji'},
+        {name:'Sokol Dema',phone:'+355 67 666 7788',apts:1,last:'Pediatri'},
+        {name:'Mirela Koci',phone:'+355 69 777 8899',apts:5,last:'Kardiologji'},
+        {name:'Alban Shehu',phone:'+355 68 888 9900',apts:2,last:'Kontroll i Përgjithshëm'},
+        {name:'Fatmira Ago',phone:'+355 67 999 0011',apts:3,last:'Dermatologji'},
+        {name:'Ilir Prifti',phone:'+355 69 000 1122',apts:2,last:'Ortopedi'},
+        {name:'Kledi Rama',phone:'+355 68 123 4567',apts:1,last:'Neurologji'},
+        {name:'Teuta Gashi',phone:'+355 67 234 5678',apts:6,last:'Pediatri'},
+    ];
+    function renderPatients(data){
+        const list=data||patients;
+        const g=document.getElementById('patientsGrid');
+        g.innerHTML=list.map(p=>`
+    <div class="patient-card">
+      <div class="pat-avatar">${p.name[0]}</div>
+      <div>
+        <div class="pat-name">${p.name}</div>
+        <div class="pat-meta">${p.phone} · ${p.last}</div>
+      </div>
+      <div class="pat-stats">
+        <div class="pat-apt-count">${p.apts}</div>
+        <div class="pat-apt-label">Takime</div>
+      </div>
+    </div>`).join('');
+    }
+    function filterPatients(){
+        const q=document.getElementById('patSearch').value.toLowerCase();
+        renderPatients(patients.filter(p=>`${p.name} ${p.phone}`.toLowerCase().includes(q)));
+    }
+
+    // ── CALENDAR ──
+    function renderCalendar(){
+        const y=calDate.getFullYear(), m=calDate.getMonth();
+        document.getElementById('calMonthTitle').innerHTML=`${months[m]} <em>${y}</em>`;
+        const first=new Date(y,m,1).getDay();
+        const start=first===0?-6:1-first;
+        const cells=document.getElementById('calCells');
+        cells.innerHTML='';
+        const aptDates={};
+        bookings.forEach(b=>{if(!aptDates[b.date])aptDates[b.date]=0;aptDates[b.date]++;});
+        for(let i=start;i<start+42;i++){
+            const d=new Date(y,m,i);
+            const dStr=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+            const isOther=d.getMonth()!==m;
+            const isToday=dStr==='2026-05-25';
+            const isSelected=d.getDate()===selectedCalDay&&d.getMonth()===m;
+            const hasApt=aptDates[dStr]>0;
+            const cell=document.createElement('div');
+            cell.className=`cal-cell${isOther?' other-month':''}${isToday?' today':''}${isSelected?' selected':''}${hasApt&&!isOther?' has-apt':''}`;
+            const count=aptDates[dStr]||0;
+            cell.innerHTML=`<span class="cal-date">${d.getDate()}</span>${count>0&&!isOther?`<div class="apt-dots">${Array(Math.min(count,3)).fill('<div class="apt-dot"></div>').join('')}</div>`:''}`;
+            cell.addEventListener('click',()=>{selectedCalDay=d.getDate();calDate=new Date(y,m,1);renderCalendar();showDayApts(dStr,d);});
+            cells.appendChild(cell);
+        }
+        showDayApts('2026-05-25',new Date(2026,4,25));
+    }
+    function changeMonth(dir){calDate.setMonth(calDate.getMonth()+dir);renderCalendar();}
+    function showDayApts(dateStr,d){
+        const dayApts=bookings.filter(b=>b.date===dateStr);
+        const el=document.getElementById('dayApts');
+        const day=d.getDate(), mon=months[d.getMonth()];
+        document.getElementById('calDayTitle').innerHTML=`${day} <em>${mon}</em>`;
+        if(!dayApts.length){el.innerHTML='<div class="no-day-apts">🗓 Nuk ka takime këtë ditë</div>';return;}
+        el.innerHTML=dayApts.map((b,i)=>`
+    <div class="day-apt ${i%3===1?'orange':i%3===2?'gold':''}" onclick="openModal(${b.id})">
+      <div>
+        <div class="apt-time">${b.time||'—'}</div>
+      </div>
+      <div>
+        <div class="apt-name">${b.name} ${b.surname}</div>
+        <div class="apt-svc">${b.service} · ${badgeHtml(b.status)}</div>
+      </div>
+    </div>`).join('');
+    }
+
+    // ── STATS ──
+    function renderStats(){
+        const days=['Hën','Mar','Mër','Enj','Pre','Sht'];
+        const vals=[5,8,6,9,7,4];
+        const max=Math.max(...vals);
+        document.getElementById('barChart').innerHTML=days.map((d,i)=>`
+    <div class="bar-wrap">
+      <div class="bar" style="height:${(vals[i]/max*100)}%">
+        <span class="bar-val">${vals[i]}</span>
+      </div>
+      <div class="bar-label">${d}</div>
+    </div>`).join('');
+        const svcs=[
+            {name:'Kontroll i Përgjithshëm',count:98,max:98},
+            {name:'Kardiologji',count:74,max:98},
+            {name:'Dermatologji',count:65,max:98},
+            {name:'Ortopedi',count:52,max:98},
+            {name:'Pediatri',count:43,max:98},
+            {name:'Neurologji',count:38,max:98},
+        ];
+        document.getElementById('topServices').innerHTML=svcs.map(s=>`
+    <div class="svc-bar-row">
+      <div class="svc-bar-top"><span class="svc-bar-name">${s.name}</span><span class="svc-bar-count">${s.count} rezervime</span></div>
+      <div class="svc-bar-track"><div class="svc-bar-fill" style="width:${(s.count/s.max*100)}%"></div></div>
+    </div>`).join('');
+    }
+
+    // ── MODAL ──
+    function openModal(id){
+        const b=bookings.find(x=>x.id===id);
+        if(!b)return;
+        document.getElementById('modalTitle').innerHTML=`${b.name} <em>${b.surname}</em>`;
+        document.getElementById('modalGrid').innerHTML=`
+    <div class="detail-item"><div class="detail-label">Telefoni</div><div class="detail-val">${b.phone}</div></div>
+    <div class="detail-item"><div class="detail-label">Shërbimi</div><div class="detail-val">${b.service}</div></div>
+    <div class="detail-item"><div class="detail-label">Data</div><div class="detail-val">${formatDate(b.date)}</div></div>
+    <div class="detail-item"><div class="detail-label">Ora</div><div class="detail-val">${b.time||'—'}</div></div>
+    <div class="detail-item"><div class="detail-label">Statusi</div><div class="detail-val">${badgeHtml(b.status)}</div></div>
+    <div class="detail-item"><div class="detail-label">Ref</div><div class="detail-val" style="color:var(--teal);font-size:12px;letter-spacing:1.5px;">#KLN-00${String(b.id).padStart(2,'0')}</div></div>`;
+        const msgWrap=document.getElementById('modalMsgWrap');
+        if(b.msg){document.getElementById('modalMsg').textContent=b.msg;msgWrap.style.display='block';}
+        else{msgWrap.style.display='none';}
+        let actions=`<button class="m-btn gray" onclick="closeModal()">Mbyll</button>`;
+        if(b.status==='pending'){
+            actions=`<button class="m-btn green" onclick="confirmBooking(${b.id});closeModal()">✓ Konfirmo</button>
+    <button class="m-btn red" onclick="cancelBooking(${b.id});closeModal()">✕ Anulo</button>
+    <button class="m-btn gray" onclick="closeModal()">Mbyll</button>`;
+        } else if(b.status==='confirmed'){
+            actions=`<button class="m-btn teal" onclick="completeBooking(${b.id});closeModal()">✓ Shëno si Përfunduar</button>
+    <button class="m-btn red" onclick="cancelBooking(${b.id});closeModal()">✕ Anulo</button>
+    <button class="m-btn gray" onclick="closeModal()">Mbyll</button>`;
+        }
+        document.getElementById('modalActions').innerHTML=actions;
+        document.getElementById('modalOverlay').classList.add('open');
+    }
+    function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+    // ── ACTIONS ──
+    function confirmBooking(id){
+        const b=bookings.find(x=>x.id===id);
+        if(b){b.status='confirmed';refresh();showToast('✓ Rezervimi u konfirmua!','success');}
+    }
+    function cancelBooking(id){
+        const b=bookings.find(x=>x.id===id);
+        if(b){b.status='cancelled';refresh();showToast('Rezervimi u anulua.','error');}
+    }
+    function completeBooking(id){
+        const b=bookings.find(x=>x.id===id);
+        if(b){b.status='completed';refresh();showToast('✓ Takimi u shënua si përfunduar!','success');}
+    }
+    function refresh(){
+        renderTodayTable();renderBookingsTable();renderCalendar();updatePendingBadge();
+    }
+    function updatePendingBadge(){
+        const c=bookings.filter(b=>b.status==='pending').length;
+        const el=document.getElementById('pendingBadge');
+        el.textContent=c; el.style.display=c?'':'none';
+    }
+
+    // ── TOAST ──
+    let toastTimer;
+    function showToast(msg,type=''){
+        const t=document.getElementById('toast');
+        t.textContent=msg;t.className='toast show '+(type||'');
+        clearTimeout(toastTimer);
+        toastTimer=setTimeout(()=>t.classList.remove('show'),3200);
+    }
+
+    // ── HELPERS ──
+    function formatDate(s){
+        if(!s)return'—';
+        const d=new Date(s);
+        return d.toLocaleDateString('sq-AL',{day:'2-digit',month:'long',year:'numeric'});
+    }
+</script>
+</body>
+</html>
